@@ -10,30 +10,16 @@ fun main(args: Array<String>) {
     val mejoresCtfByGroupId = calculaMejoresResultados(participaciones)
     println(mejoresCtfByGroupId)
 */
-    val map = args.fold(Pair(emptyMap<String, List<String>>(), "")) { (map, lastKey), elem ->
-        if (elem.startsWith("-"))  Pair(map + (elem to emptyList()), elem)
-        else Pair(map + (lastKey to map.getOrDefault(lastKey, emptyList()) + elem), lastKey)
-    }.first
-    val parser = ArgParser("example")
+
+    val parser = ArgParser("un9pe")
     val input by parser.option(ArgType.String, shortName = "a", description = "Añade un participante, sintaxis: -a <ctfsid> <grupoid> <puntuacion>").multiple()
-    val delete by parser.option(ArgType.String, shortName = "d", description = "Borra un grupo, sintaxis: -d <ctfif> <grupoid>").multiple()
-    val listado by parser.option(ArgType.String, shortName = "l", description = "lista el grupo seleccionado, sintaxis: -l <grupoid>").multiple()
-    parser.subcommands("a","b")
+    val delete by parser.option(ArgType.Int, shortName = "d", description = "Borra un grupo, sintaxis: -d <ctfif> <grupoid>").multiple()
+    val listado by parser.option(ArgType.Int, shortName = "l", description = "lista el grupo seleccionado, sintaxis: -l <grupoid>").multiple()
     parser.parse(args)
-    println(input)
+
 }
 
 
-/**
- * TODO
- *
- * @param participaciones
- * @return devuelve un mutableMapOf<Int, Pair<Int, Ctf>> donde
- *      Key: el grupoId del grupo
- *      Pair:
- *          first: Mejor posición
- *          second: Objeto CTF el que mejor ha quedado
- */
 private fun calculaMejoresResultados(participaciones: List<Ctf>): MutableMap<Int, Pair<Int, Ctf>> {
     val participacionesByCTFId = participaciones.groupBy { it.id }
     var participacionesByGrupoId = participaciones.groupBy { it.grupoId }
@@ -55,5 +41,3 @@ private fun calculaMejoresResultados(participaciones: List<Ctf>): MutableMap<Int
     }
     return mejoresCtfByGroupId
 }
-
-hola kirby
