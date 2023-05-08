@@ -1,7 +1,6 @@
 package DAO.GRUPOS
 
 import DAO.GRUPOS.entity.GroupsEntity
-import java.util.*
 import javax.sql.DataSource
 
 class GroupDAOH2(private var baseDATOS:DataSource):GroupDAO {
