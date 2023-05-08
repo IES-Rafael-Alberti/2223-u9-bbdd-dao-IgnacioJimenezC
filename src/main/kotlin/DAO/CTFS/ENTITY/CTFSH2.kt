@@ -4,7 +4,6 @@ import DAO.CTFS.CTFSDAO
 import javax.sql.DataSource
 
 class CTFSH2(private var fuenteDeDator:DataSource):CTFSDAO {
-    /*TODO() terminar el ctfs DAO*/
     override fun create(ctfs:CTFSEntity): CTFSEntity {
         val sql = "INSERT INTO CTFS (CTFID, GRUPOID, PUNTUACION) VALUES (?, ?, ?)"
         return fuenteDeDator.connection.use { conn ->
@@ -18,11 +17,11 @@ class CTFSH2(private var fuenteDeDator:DataSource):CTFSDAO {
         }
     }
 
-    override fun getById(id: Int): CTFSEntity? {
+    override fun getById(grupoId: Int): CTFSEntity? {
         val sql = "SELECT * FROM CTFS WHERE CTFID = ?"
         return fuenteDeDator.connection.use { conn ->
             conn.prepareStatement(sql).use { stmt ->
-                stmt.setString(1, id.toString())
+                stmt.setInt(1, grupoId)
                 val rs = stmt.executeQuery()
                 if (rs.next()) {
                     CTFSEntity(
