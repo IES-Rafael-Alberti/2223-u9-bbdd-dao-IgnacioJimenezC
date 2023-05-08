@@ -1,7 +1,6 @@
 package DAO.CTFS.ENTITY
 
 import DAO.CTFS.CTFSDAO
-import java.util.*
 import javax.sql.DataSource
 
 class CTFSH2(private var fuenteDeDator:DataSource):CTFSDAO {
